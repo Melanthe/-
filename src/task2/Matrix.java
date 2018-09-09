@@ -141,7 +141,7 @@ public class Matrix {
 
         System.out.println("Number and  max element of lines with '0' on the diagonal: ");
 
-        for (int i = 0; i < lines; ++i) {
+        for (int i = 0; (i < lines) && (i < column); ++i) {
 
             if (matrix[i][i] == 0) {
 
