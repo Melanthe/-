@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Matrix {
 
-    private int matrix[][];
+    private int[][] matrix;
     private int lines;
     private int column;
 

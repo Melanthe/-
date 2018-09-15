@@ -5,10 +5,15 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public void startMenu() {
+    private String answer;
+    private int choice;
+    private Scanner sc;
 
-        String answer;
-        Scanner sc = new Scanner(System.in);
+    public Menu() {
+        sc = new Scanner(System.in);
+    }
+
+    public void startMenu() {
 
         try {
             do {
@@ -37,10 +42,6 @@ public class Menu {
     }
 
     private void functionMenu(Matrix matrix) {
-
-            int choice;
-
-            Scanner sc = new Scanner(System.in);
 
             do {
 
