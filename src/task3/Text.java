@@ -43,7 +43,6 @@ public class Text {
     private void findNum() {
 
         String mask = "\\d+";
-        String found;
 
         Pattern pattern = Pattern.compile(mask);
         Matcher matcher = pattern.matcher(string);
