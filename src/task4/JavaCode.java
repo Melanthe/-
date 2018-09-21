@@ -1,9 +1,7 @@
 package task4;
 
 import common.MyExceptions;
-import jregex.Matcher;
-import jregex.util.io.PathPattern;
-import jregex.PatternSyntaxException;
+import java.util.regex.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,11 +12,13 @@ public class JavaCode {
 
     private String text;
     private String regex;
+    private StringBuffer buf;
 
     JavaCode() {
 
         text = "";
-        regex = "(\"[^\'].*?\"|print(?:ln|f)?\\(.*\\);)|(?(1)|((?s)\\/\\*.*?\\*\\/))|(?(1)|((?-s)\\/\\/.*))";
+        buf = new StringBuffer();
+        regex = "(\"[^\\'].*[^\\\\]?\")|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
     }
 
     public void writeText() throws Exception {
@@ -35,28 +35,35 @@ public class JavaCode {
         while (sc.hasNextLine()) {
 
             text += sc.nextLine();
-            text += '\n';
+            text += "\r\n";
         }
 
         fr.close();
     }
 
-    public void deleteComments() throws PatternSyntaxException {
+    public void deleteComments() throws Exception {
 
-        PathPattern pattern = new PathPattern(regex);
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
 
-       text
-               .replaceAll(matcher.group(2), "")
-               .replaceAll(matcher.group(3), "");
+        int start = 0;
+        boolean flag = matcher.find();
+
+        while(flag) {
+
+            matcher.appendReplacement(buf, "$1");
+            flag = matcher.find();
+        }
+
+        matcher.appendTail(buf);
 
     }
 
     public void printResult() throws Exception {
 
-        FileWriter fw = new FileWriter("D:\\Java\\Laboratory works\\src\\task4\\Result.txt");
+        FileWriter fw = new FileWriter("result.txt");
 
-        fw.write(text);
+        fw.write(buf.toString());
 
         fw.close();
     }

@@ -25,6 +25,9 @@ public class Task4 {
         } catch (PatternSyntaxException e) {
             System.out.println("Syntax error in the pattern!");
 
+        } catch (IllegalStateException e) {
+            System.out.println("Invalid match!");
+
         } catch (Exception e) {
             System.out.println("Error!");
         }
