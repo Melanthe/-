@@ -20,7 +20,7 @@
             String str = "'";
             char ccc = '*';
             char cccc = '"'; 
-            System.out.println("/*dfsdf*////****/**//**Hello\", "\\'world!\\"); 
+            System.out.println("/*dfsdf*////****/**//**Hello\", \\'world!\\"); 
             char cccc = 100/'*';
             char f = '\\';
             char f1 = '\n';
@@ -28,3 +28,5 @@
             "".getBytes();
         }
     }
+
+    (?(?<!")(?(?<!\/)(?(?<!\*)\/\*[\S\s]*?\*\/)))|(?(?<!")(?(?<!\/)(?(?<!\*)(\/\/.*))))
