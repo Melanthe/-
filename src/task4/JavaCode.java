@@ -1,6 +1,7 @@
 package task4;
 
 import common.MyExceptions;
+
 import java.util.regex.*;
 
 import java.io.File;
@@ -11,30 +12,31 @@ import java.util.Scanner;;
 public class JavaCode {
 
     private String text;
-    private String regex;
-    private StringBuffer buf;
+    private String removeComment;
+    private String removePrintComment;
+    private StringBuffer buffer;
+    private String result;
 
     JavaCode() {
 
-        text = "";
-        buf = new StringBuffer();
-        regex = "(\"[^\\'].*[^\\\\]?\")|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
+        buffer = new StringBuffer();
+        removeComment = "(\\\"[^\\'].*?\\\"|print(?:ln|f)?\\(.*\\);)|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
+        removePrintComment = "(\"(?:[^\\\\\"]+|\\\\.)*\")|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
     }
 
     public void writeText() throws Exception {
 
         File file = new File("D:\\Java\\Laboratory works\\src\\task4\\code.txt");
         FileReader fr = new FileReader(file);
-        Scanner sc = new Scanner(fr);
+        Scanner scanner = new Scanner(fr);
 
         if (!file.exists()) {
             throw new MyExceptions("File doesn't exist!");
         }
 
+        while (scanner.hasNextLine()) {
 
-        while (sc.hasNextLine()) {
-
-            text += sc.nextLine();
+            text += scanner.nextLine();
             text += "\r\n";
         }
 
@@ -43,27 +45,32 @@ public class JavaCode {
 
     public void deleteComments() throws Exception {
 
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(removeComment);
         Matcher matcher = pattern.matcher(text);
+        String replacement;
 
-        int start = 0;
-        boolean flag = matcher.find();
+        while (matcher.find()) {
 
-        while(flag) {
+            if (matcher.group(1) != null) {
 
-            matcher.appendReplacement(buf, "$1");
-            flag = matcher.find();
+                replacement = matcher.group().replaceAll(removePrintComment, "$1");
+                matcher.appendReplacement(buffer, replacement);
+
+            } else {
+
+                matcher.appendReplacement(buffer, "$1");
+            }
         }
 
-        matcher.appendTail(buf);
-
+        matcher.appendTail(buffer);
+        result = buffer.toString();
     }
 
     public void printResult() throws Exception {
 
-        FileWriter fw = new FileWriter("result.txt");
+        FileWriter fw = new FileWriter("result4.txt");
 
-        fw.write(buf.toString());
+        fw.write(result);
 
         fw.close();
     }

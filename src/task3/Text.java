@@ -3,25 +3,21 @@ package task3;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 public class Text {
 
     private String string;
-    private Scanner sc;
     private Vector<Integer> vc;
 
     public Text() {
-        sc = new Scanner(System.in);
         vc = new Vector<Integer>();
     }
 
-    public void writeText() {
+    public void writeAndFindNum() {
 
         System.out.println("Start write a text: \n");
-
-        try {
+        Scanner sc = new Scanner(System.in);
 
             string = sc.nextLine();
 
@@ -30,19 +26,11 @@ public class Text {
                 findNum();
                 string = sc.nextLine();
             }
-
-
-        } catch (NumberFormatException e) {
-            System.out.println("Incorrect input!");
-
-        } catch (Exception e) {
-            System.out.println("Error!");
-        }
     }
 
-    private void findNum() {
+    private void findNum() throws PatternSyntaxException {
 
-        String mask = "\\d+";
+        String mask = "-?\\d+";
 
         Pattern pattern = Pattern.compile(mask);
         Matcher matcher = pattern.matcher(string);
@@ -53,7 +41,7 @@ public class Text {
         }
     }
 
-    public void showNums() {
+    public void ShowSortNum() {
 
         sortUp();
 
