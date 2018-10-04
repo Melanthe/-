@@ -2,6 +2,7 @@ package task4;
 
 import common.MyExceptions;
 
+import java.io.IOException;
 import java.util.regex.*;
 
 import java.io.File;
@@ -17,14 +18,14 @@ public class JavaCode {
     private StringBuffer buffer;
     private String result;
 
-    JavaCode() {
+    public JavaCode() {
 
         buffer = new StringBuffer();
         removeComment = "(\\\"[^\\'].*?\\\"|print(?:ln|f)?\\(.*\\);)|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
         removePrintComment = "(\"(?:[^\\\\\"]+|\\\\.)*\")|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
     }
 
-    public void writeText() throws Exception {
+    public void writeText() throws IOException, MyExceptions {
 
         File file = new File("D:\\Java\\Laboratory works\\src\\task4\\code.txt");
         FileReader fr = new FileReader(file);
@@ -43,7 +44,7 @@ public class JavaCode {
         fr.close();
     }
 
-    public void deleteComments() throws Exception {
+    public void deleteComments() throws PatternSyntaxException {
 
         Pattern pattern = Pattern.compile(removeComment);
         Matcher matcher = pattern.matcher(text);
@@ -58,7 +59,7 @@ public class JavaCode {
 
             } else {
 
-                matcher.appendReplacement(buffer, "$1");
+                matcher.appendReplacement(buffer, "");
             }
         }
 
@@ -66,7 +67,7 @@ public class JavaCode {
         result = buffer.toString();
     }
 
-    public void printResult() throws Exception {
+    public void printResult() throws IOException {
 
         FileWriter fw = new FileWriter("result4.txt");
 

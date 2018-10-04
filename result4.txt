@@ -1,4 +1,4 @@
-null     
+null
     package lab4;
     
     public class Main {
@@ -13,7 +13,7 @@ null
             char ccc = '*';
             char cccc = '"'; 
             System.out.println("/*dfsdf*////****/**//**Hello", \'world!\"); 
-            System.out.println("/*dfsdf*////****/**//**Hello", \'world!\"  + "asf");
+            System.out.println("/*dfsdf*////****/**//**Hello", \'world!\"  +  + "asf");
             char cccc = 100/'*';
             char f = '\\';
             System.out.println("/*dfsdf*////****/**//**Hello", \'world!\\"); 
