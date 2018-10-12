@@ -1,12 +1,11 @@
 package task4;
 
-import common.MyExceptions;
+import common.MyException;
 
 import java.io.IOException;
 import java.util.regex.*;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;;
 
@@ -20,28 +19,27 @@ public class JavaCode {
 
     public JavaCode() {
 
+        text = "";
         buffer = new StringBuffer();
         removeComment = "(\\\"[^\\'].*?\\\"|print(?:ln|f)?\\(.*\\);)|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
         removePrintComment = "(\"(?:[^\\\\\"]+|\\\\.)*\")|((?s)\\/\\*.*?\\*\\/)|((?-s)\\/\\/.*)";
     }
 
-    public void writeText() throws IOException, MyExceptions {
+    public void writeText() throws IOException, MyException {
 
-        File file = new File("D:\\Java\\Laboratory works\\src\\task4\\code.txt");
-        FileReader fr = new FileReader(file);
-        Scanner scanner = new Scanner(fr);
+        File file = new File("input/input4.txt");
+        try (Scanner scanner = new Scanner(file)) {
 
-        if (!file.exists()) {
-            throw new MyExceptions("File doesn't exist!");
+            if (!file.exists()) {
+                throw new MyException("File doesn't exist!");
+            }
+
+            while (scanner.hasNextLine()) {
+
+                text += scanner.nextLine();
+                text += "\r\n";
+            }
         }
-
-        while (scanner.hasNextLine()) {
-
-            text += scanner.nextLine();
-            text += "\r\n";
-        }
-
-        fr.close();
     }
 
     public void deleteComments() throws PatternSyntaxException {
@@ -69,7 +67,7 @@ public class JavaCode {
 
     public void printResult() throws IOException {
 
-        FileWriter fw = new FileWriter("result4.txt");
+        FileWriter fw = new FileWriter("output/result4.txt");
 
         fw.write(result);
 

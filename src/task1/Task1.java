@@ -1,6 +1,6 @@
 package task1;
 
-import common.MyExceptions;
+import common.MyException;
 
 public class Task1 {
     public static void main(String[] argh){
@@ -12,7 +12,7 @@ public class Task1 {
             tl.standartSum();
             tl.show();
         }
-        catch(MyExceptions e){
+        catch(MyException e){
             System.out.println(e);
         }
         catch(NumberFormatException e){

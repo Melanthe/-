@@ -1,6 +1,6 @@
 package task4;
 
-import common.MyExceptions;
+import common.MyException;
 import jregex.PatternSyntaxException;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class Task4 {
             jc.deleteComments();
             jc.printResult();
 
-        } catch (MyExceptions e) {
+        } catch (MyException e) {
             System.out.println(e);
 
         } catch (IOException e) {

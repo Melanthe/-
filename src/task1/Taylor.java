@@ -1,6 +1,6 @@
 package task1;
 
-import common.MyExceptions;
+import common.MyException;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class Taylor {
     private  double sum;
     private  double stSum;
 
-    public void init() throws MyExceptions {
+    public void init() throws MyException {
 
         Scanner sc = new Scanner(System.in);
 
@@ -22,7 +22,7 @@ public class Taylor {
         x = Double.parseDouble(sc.next());
 
         if (k <= 0) {
-            throw new MyExceptions("Accuracy must be greater than 0!");
+            throw new MyException("Accuracy must be greater than 0!");
         }
 
         eps = Math.pow(10, -k);

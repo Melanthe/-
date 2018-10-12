@@ -1,6 +1,6 @@
 package task2;
 
-import common.MyExceptions;
+import common.MyException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
