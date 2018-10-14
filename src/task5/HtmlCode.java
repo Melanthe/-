@@ -11,16 +11,29 @@ import java.util.regex.*;
 public class HtmlCode {
 
     private String text;
-    private List<String> tags;
+    private Set<String> tags;
     private List<String> textToFind;
+    private List<String> notFoundText;
     private Map<String, Integer> found;
 
     private String findTags;
 
     public HtmlCode() {
         text = "";
-        tags = new ArrayList<>();
+        tags = new TreeSet<>(new Comparator<String>() {
+            @Override
+            public int compare(String x, String y) {
+
+                if ((x.length() - y.length()) == 0) {
+                    return x.compareToIgnoreCase(y);
+                } else {
+                    return (x.length() - y.length());
+                }
+            }
+        });
+
         textToFind = new ArrayList<>();
+        notFoundText = new ArrayList<>();
         found = new HashMap<>();
         findTags = "(<!--[^>]+-->)|(?:<(\\/?[^>]+)>)";
     }
@@ -38,19 +51,20 @@ public class HtmlCode {
         }
 
         try (Scanner codeScanner = new Scanner(codeFile);
-             Scanner toFindScanner = new Scanner(toFindFile).useDelimiter(";")) {
+             Scanner toFindScanner = new Scanner(toFindFile).useDelimiter("[;\\n\\r]+")) {
 
             while (codeScanner.hasNextLine()) {
 
                 text += codeScanner.nextLine();
+                text += "\n";
             }
             while(toFindScanner.hasNext()) {
-                textToFind.add(toFindScanner.next());
+                textToFind.add(toFindScanner.next().toLowerCase());
             }
         }
     }
 
-    public void findAndSortTags() throws PatternSyntaxException{
+    public void findTags() throws PatternSyntaxException{
 
         Pattern pattern = Pattern.compile(findTags);
         Matcher matcher = pattern.matcher(text);
@@ -72,26 +86,65 @@ public class HtmlCode {
                 }
             }
         }
-
-        tags.sort(new Comparator<String>() {
-            @Override
-            public int compare(String x, String y) {
-                return (x.length() - y.length());
-            }
-        });
     }
 
     public void findText() {
 
+        int line = 0;
+        String tmp = "";
+
         text = text.replaceAll(findTags, "");
 
+        try (Scanner lines = new Scanner(text)) {
+
+            while(lines.hasNextLine()) {
+
+                tmp = lines.nextLine();
+                tmp = tmp.toLowerCase();
+
+                if (!tmp.equals("")) {
+                    for (String item : textToFind) {
+
+                        if (tmp.contains(item)) {
+
+                            if (!found.containsKey(item)) {
+                                found.put(item, line);
+                            }
+                        }
+                    }
+                }
+                line++;
+            }
+
+            for (String item: textToFind) {
+
+                if (!found.containsKey(item)) {
+                    found.put(item, -1);
+                }
+            }
+        }
+
+        for (String item: textToFind) {
+
+            if (found.get(item) == -1) {
+                notFoundText.add(item);
+            }
+        }
     }
 
     public void output() throws IOException {
 
-        try (PrintStream ps = new PrintStream("output/result5.1.txt")) {
+        try (PrintStream ps1 = new PrintStream("output/result5.1.txt");
+             PrintStream ps2 = new PrintStream("output/result5.2.txt");
+             PrintStream ps3 = new PrintStream("output/result5.3.txt")) {
 
-            tags.forEach(item -> ps.println(item));
+            tags.forEach(item -> ps1.println(item));
+
+            for(Map.Entry<String, Integer> item : found.entrySet()) {
+                ps2.println(item.getValue() + "\t" + item.getKey());
+            }
+
+            notFoundText.forEach(item -> ps3.println(item));
         }
     }
 }

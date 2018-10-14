@@ -1,13 +1,13 @@
-<b>
 <a>
+<b>
 <i>
 <div>
-<html>
 <body>
+<html>
 <text>
 <title>
 <words>
 <div id='form_a'>
 <script type='text/javascript' src='current_script.js'>
 <link rel='stylesheet' type='text/css' href='main.css' />
-<input type='submit' value='check' class='button' name='check_button' mouse="check_fields('first_name', 'last_name'); " />
+<input type='submit' value='check' class='button' name='check_button'  mouse="check_fields('first_name', 'last_name'); " />

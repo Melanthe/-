@@ -13,7 +13,7 @@ public class Task5 {
 
             html.input();
 
-            html.findAndSortTags();
+            html.findTags();
             html.findText();
 
             html.output();
