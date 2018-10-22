@@ -2,12 +2,12 @@
 <div>
 <title>Hi world</title>
   <!-- It's just  a comment --> 
-<B>Test of this program</B>
+<B>Test of this program</B><hello></hello>
   <script type='text/javascript' src='current_script.js'></script> 
 	<a>From my heart and soul</A>
   <link rel='StyleSheet' type='text/css' href='main.css' /> 
  </head> 
- <body> 
+ <body> he<b>llo
   <div id='form_A'> He said it was a clean truth
 <text>My little prince <words>You're so kind</words>and bright</text>
  h<b><i>el</i>l</b>o
