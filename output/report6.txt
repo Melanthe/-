@@ -1,0 +1,19 @@
+Time:
+28.10.2018, 17:39
+Request:
+БелКофе
+Number of found companies:
+1
+
+Request:
+Пищевая
+Number of found companies:
+3
+
+Time:
+28.10.2018, 17:39
+Request:
+hello!
+Number of found companies:
+0
+

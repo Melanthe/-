@@ -1,9 +1,9 @@
 package task4;
 
 import common.MyException;
-import jregex.PatternSyntaxException;
 
 import java.io.IOException;
+import java.util.regex.PatternSyntaxException;
 
 public class Task4 {
     public static void main(String[] args) {
