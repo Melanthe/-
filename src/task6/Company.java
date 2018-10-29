@@ -1,5 +1,6 @@
 package task6;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Company {
@@ -53,7 +54,8 @@ public class Company {
 
                     res[i] = sc.nextInt();
 
-                }catch (NumberFormatException e) {}
+                } catch (InputMismatchException e) {
+                }
             }
 
             return res;
@@ -65,8 +67,8 @@ public class Company {
         return shortTitle;
     }
 
-    public int[] getDateFoundation() {
-        return dateFoundation;
+    public String getDateFoundation() {
+        return dateToString(dateFoundation);
     }
 
     public int getCountEmployees() {
@@ -81,6 +83,34 @@ public class Company {
         return activity;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDateUpdate() {
+        return dateToString(dateUpdate);
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getAuditor() {
+        return auditor;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
     @Override
     public boolean equals(Object company) {
 
@@ -92,7 +122,7 @@ public class Company {
             return false;
         }
 
-        return (name.equalsIgnoreCase(((Company)company).name));
+        return (name.equalsIgnoreCase(((Company) company).name));
     }
 
     @Override
@@ -101,10 +131,18 @@ public class Company {
         int result = 0;
         int length = name.length();
 
-        for(int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; ++i) {
             result += name.charAt(i);
         }
 
         return result;
+    }
+
+    private String dateToString(int[] date) {
+
+        StringBuilder res = new StringBuilder(date[0]);
+        res.append(".").append(date[1]).append(".").append(date[2]);
+
+        return res.toString();
     }
 }

@@ -2,11 +2,17 @@ package task6;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -29,7 +35,11 @@ public class Menu {
         scanner = new Scanner(System.in);
     }
 
-    public void menu() throws NumberFormatException, IOException {
+    public void menu()
+
+            throws
+            NumberFormatException, IOException,
+            ParserConfigurationException, TransformerException {
 
         String answer;
         int choice;
@@ -72,7 +82,10 @@ public class Menu {
         System.out.println("5. Select companies by the number of employees in a certain period (from and to).");
     }
 
-    private void choice(int num) throws IOException {
+    private void choice(int num)
+
+            throws
+            IOException, ParserConfigurationException, TransformerException {
 
         code = true;
         String key;
@@ -86,7 +99,8 @@ public class Menu {
                 key = scanner.nextLine().trim();
 
                 res = companies.findByShortName(key);
-                writeResToJason(res);
+                writeToJason(res);
+                writeToXml(res);
 
                 writer.write("\nRequest:\n" + key);
                 writer.write("\nNumber of found companies:\n" + res.size() + "\n");
@@ -101,7 +115,8 @@ public class Menu {
                 key = scanner.nextLine().trim();
 
                 res = companies.findByBranch(key);
-                writeResToJason(res);
+                writeToJason(res);
+                writeToXml(res);
 
                 writer.write("\nRequest:\n" + key);
                 writer.write("\nNumber of found companies:\n" + res.size() + "\n");
@@ -116,7 +131,8 @@ public class Menu {
                 key = scanner.nextLine().trim();
 
                 res = companies.findByActivity(key);
-                writeResToJason(res);
+                writeToJason(res);
+                writeToXml(res);
 
                 writer.write("\nRequest:\n" + key);
                 writer.write("\nNumber of found companies:\n" + res.size() + "\n");
@@ -140,12 +156,68 @@ public class Menu {
         }
     }
 
-    private void writeResToJason(List<Company> list) throws FileNotFoundException {
+    private void writeToJason(List<Company> list) throws FileNotFoundException {
 
         try (PrintWriter pw = new PrintWriter("output/result6.json")) {
 
             Gson gs = new GsonBuilder().setPrettyPrinting().create();
             gs.toJson(list, pw);
         }
+    }
+
+    private void writeToXml(List<Company> list)
+            throws ParserConfigurationException, TransformerException {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.newDocument();
+
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+        Element root = document.createElement("Companies");
+
+        document.appendChild(root);
+        for (Company item : list) {
+
+            root.appendChild(makeCompanyNode(item, document));
+        }
+
+        File file = new File("output/result6.xml");
+        transformer.transform(new DOMSource(document), new StreamResult(file));
+    }
+
+    private Node makeCompanyNode(Company company, Document document) {
+
+        Element node = document.createElement(company.getName());
+
+        node.appendChild(makeFieldNode(document, "name", company.getName()));
+        node.appendChild(makeFieldNode(document, "short name", company.getShortName()));
+        node.appendChild(makeFieldNode(document, "date update", company.getDateUpdate()));
+        node.appendChild(makeFieldNode(document, "address", company.getAddress()));
+        node.appendChild(makeFieldNode(document, "date foundation", company.getDateFoundation()));
+        node.appendChild(makeFieldNode(document, "count of employees",
+                Integer.toString(company.getCountEmployees())));
+        node.appendChild(makeFieldNode(document, "auditor", company.getAuditor()));
+        node.appendChild(makeFieldNode(document, "phone", company.getPhone()));
+        node.appendChild(makeFieldNode(document, "email", company.getEmail()));
+        node.appendChild(makeFieldNode(document, "branch", company.getBranch()));
+        node.appendChild(makeFieldNode(document, "activity", company.getActivity()));
+        node.appendChild(makeFieldNode(document, "link", company.getLink()));
+
+        return node;
+
+    }
+
+    private Node makeFieldNode(Document document, String name, String value) {
+
+        Element title = document.createElement(name);
+        Element field = document.createElement(value);
+
+        title.appendChild(field);
+
+        return title;
     }
 }

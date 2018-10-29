@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "name": "ОАО \"Белкофе\"",
+    "shortTitle": "БелКофе",
+    "dateUpdate": [
+      10,
+      4,
+      2003
+    ],
+    "address": "Маяковского, 180",
+    "dateFoundation": [
+      13,
+      2,
+      1999
+    ],
+    "countEmployees": 4000,
+    "auditor": "Иванов",
+    "phone": "338659021",
+    "email": "coffe@mail.ru",
+    "branch": "услуг",
+    "activity": "осуществление общественного питания",
+    "link": "http://belcofe.by/"
+  }
+]

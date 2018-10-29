@@ -17,3 +17,10 @@ hello!
 Number of found companies:
 0
 
+Time:
+29.10.2018, 21:55
+Request:
+DOMException
+Number of found companies:
+0
+
