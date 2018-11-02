@@ -1,24 +1,44 @@
 [
   {
-    "name": "ОАО \"Белкофе\"",
-    "shortTitle": "БелКофе",
-    "dateUpdate": [
-      10,
-      4,
-      2003
-    ],
-    "address": "Маяковского, 180",
-    "dateFoundation": [
-      13,
-      2,
-      1999
-    ],
-    "countEmployees": 4000,
-    "auditor": "Иванов",
-    "phone": "338659021",
-    "email": "coffe@mail.ru",
-    "branch": "услуг",
-    "activity": "осуществление общественного питания",
-    "link": "http://belcofe.by/"
+    "name": "ОАО \"Городейский сахарный комбинат\"",
+    "shortTitle": "Сахарный комбинат",
+    "dateUpdate": "12.11.2009",
+    "address": "Минск, Партизанский пр. 134",
+    "countEmployees": 25000,
+    "dateFoundation": "09.05.2000",
+    "auditor": "Ковалевский",
+    "phone": "447887589",
+    "email": "sugar@mail.ru",
+    "branch": "пищевая",
+    "activity": "производство пищевых продуктов",
+    "link": "http://www.gsr.by"
+  },
+  {
+    "name": "\r\nСОАО \"Коммунарка\"",
+    "shortTitle": "",
+    "dateUpdate": "25.12.2007",
+    "address": "Артема 24",
+    "countEmployees": 5000,
+    "dateFoundation": "22.03.1997",
+    "auditor": "Петров",
+    "phone": "+375296664576",
+    "email": "communarka@gmail.com",
+    "branch": "Пищевая",
+    "activity": "производство кондитерских изделий",
+    "link": "http://www.kommunarka.by/"
+  },
+  {
+    "name": "ОАО \"Красный пищевик\"",
+    "shortTitle": "Красный пищевик",
+    "dateUpdate": "01.01.2005",
+    "address": "Убаревича 68",
+    "countEmployees": 15000,
+    "dateFoundation": "05.10.1998",
+    "auditor": "Котиков",
+    "phone": "449078956",
+    "email": "krasnyPisvhevik@mail.ru",
+    "branch": "пищевая",
+    "activity": "производство кондитерских изделий",
+    "link": "http://www.zefir.by/"
   }
 ]

@@ -2,19 +2,13 @@ package task6;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,30 +16,28 @@ import static java.time.format.FormatStyle.SHORT;
 
 public class Menu {
 
-    private boolean code;
+    private boolean menuFlag;
     private Companies companies;
-    private FileWriter writer;
     private Scanner scanner;
+
+    private List<Company> resultOfSearching;
+    private List<String> requests;
+
 
     public Menu() throws IOException {
 
-        code = true;
+        menuFlag = true;
         companies = new Companies();
-        writer = new FileWriter("output/report6.txt", true);
+        companies.fillBase();
         scanner = new Scanner(System.in);
+        resultOfSearching = new ArrayList<>();
+        requests = new ArrayList<>();
     }
 
-    public void menu()
-
-            throws
-            NumberFormatException, IOException,
-            ParserConfigurationException, TransformerException {
+    public void menu() throws NumberFormatException, IOException {
 
         String answer;
         int choice;
-
-        companies.fillBase();
-        writer.write("Time:\n" + LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(SHORT, SHORT)));
 
         do {
 
@@ -53,23 +45,21 @@ public class Menu {
 
             do {
                 System.out.println("\nInput the number of the request: ");
-
                 choice = Integer.parseInt(scanner.nextLine());
+                chooseFunction(choice);
 
-                choice(choice);
+                writeToJason(resultOfSearching);
+                writeToXml(resultOfSearching);
+                writeReport();
 
-            } while (!code);
-
+            } while (!menuFlag);
 
             System.out.println("\nDo you want to continue (yes\\no): ");
-
             answer = scanner.nextLine();
 
         } while (answer.equalsIgnoreCase("yes"));
 
         scanner.close();
-        writer.write("\n");
-        writer.close();
     }
 
     private void text() {
@@ -82,76 +72,76 @@ public class Menu {
         System.out.println("5. Select companies by the number of employees in a certain period (from and to).");
     }
 
-    private void choice(int num)
+    private void chooseFunction(int num) {
 
-            throws
-            IOException, ParserConfigurationException, TransformerException {
-
-        code = true;
-        String key;
-        List<Company> res;
+        menuFlag = true;
 
         switch (num) {
 
             case 1: {
 
                 System.out.println("Enter short name for searching:");
-                key = scanner.nextLine().trim();
-
-                res = companies.findByShortName(key);
-                writeToJason(res);
-                writeToXml(res);
-
-                writer.write("\nRequest:\n" + key);
-                writer.write("\nNumber of found companies:\n" + res.size() + "\n");
-
-                res.clear();
+                String tmp = scanner.nextLine().trim();
+                requests.add(tmp);
+                resultOfSearching = companies.findByShortName(tmp);
 
                 break;
             }
             case 2: {
 
                 System.out.println("Enter branch for searching:");
-                key = scanner.nextLine().trim();
-
-                res = companies.findByBranch(key);
-                writeToJason(res);
-                writeToXml(res);
-
-                writer.write("\nRequest:\n" + key);
-                writer.write("\nNumber of found companies:\n" + res.size() + "\n");
-
-                res.clear();
+                String tmp = scanner.nextLine().trim();
+                requests.add(tmp);
+                resultOfSearching = companies.findByBranch(tmp);
 
                 break;
             }
             case 3: {
 
                 System.out.println("Enter activity for searching:");
-                key = scanner.nextLine().trim();
-
-                res = companies.findByActivity(key);
-                writeToJason(res);
-                writeToXml(res);
-
-                writer.write("\nRequest:\n" + key);
-                writer.write("\nNumber of found companies:\n" + res.size() + "\n");
-
-                res.clear();
+                String tmp = scanner.nextLine().trim();
+                requests.add(tmp);
+                resultOfSearching = companies.findByActivity(tmp);
 
                 break;
             }
             case 4: {
 
+                System.out.println("Enter from and to date (dd.mm.yyyy): ");
+                String from = scanner.nextLine().trim();
+                String to = scanner.nextLine().trim();
+                requests.add(from);
+                requests.add(to);
+
+                if (!checkDate(from, to)) {
+                    menuFlag = false;
+                    break;
+                }
+                resultOfSearching = companies.findByDateFoundation(from, to);
+
                 break;
             }
             case 5: {
+
+                System.out.println("Enter from and to number of employees: ");
+                requests.add(scanner.nextLine());
+                requests.add(scanner.nextLine());
+
+                int from = Integer.parseInt(requests.get(0));
+                int to = Integer.parseInt(requests.get(1));
+
+                if (!checkNumbers(from, to)) {
+                    System.out.println("Incorrect input! From must be less or equal to.");
+                    menuFlag = false;
+                    break;
+                }
+                resultOfSearching = companies.findByEmployees(from, to);
 
                 break;
             }
             default:
                 System.out.println("\nIncorrect number, try again!");
-                code = false;
+                menuFlag = false;
                 break;
         }
     }
@@ -165,59 +155,121 @@ public class Menu {
         }
     }
 
-    private void writeToXml(List<Company> list)
-            throws ParserConfigurationException, TransformerException {
+    private void writeToXml(List<Company> list) throws FileNotFoundException {
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.newDocument();
+        StringBuilder sb = new StringBuilder();
+        PrintWriter pw = new PrintWriter("output/result6.xml");
 
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        try (pw) {
 
-        Element root = document.createElement("Companies");
+            pw.println("<Companies>\n");
 
-        document.appendChild(root);
-        for (Company item : list) {
+            for (Company item : list) {
 
-            root.appendChild(makeCompanyNode(item, document));
+                sb.append("<Company>\n\t");
+                sb.append("<name> ").append(item.getName()).append(" </name>\n\t");
+                sb.append("<shortName> ").append(item.getShortName()).append(" </shortName>\n\t");
+                sb.append("<dateUpdate> ").append(item.getDateUpdate()).append(" </dateUpdate>\n\t");
+                sb.append("<address> ").append(item.getAddress()).append(" </address>\n\t");
+                sb.append("<countEmployees> ").append(item.getCountEmployees()).append(" </countEmployees>\n\t");
+                sb.append("<dateFoundation> ").append(item.getDateFoundation()).append(" </dateFoundation>\n\t");
+                sb.append("<auditor> ").append(item.getAuditor()).append(" </auditor>\n\t");
+                sb.append("<phone> ").append(item.getPhone()).append(" </phone>\n\t");
+                sb.append("<email> ").append(item.getEmail()).append(" </email>\n\t");
+                sb.append("<branch> ").append(item.getBranch()).append(" </branch>\n\t");
+                sb.append("<activity> ").append(item.getActivity()).append(" </activity>\n\t");
+                sb.append("<link> ").append(item.getLink()).append(" </link>\n");
+                sb.append("</Company>\n\n");
+
+                pw.println(sb.toString());
+                sb.delete(0, sb.length());
+            }
+
+            pw.println("</Companies>\n");
+        }
+    }
+
+    private boolean checkDate(String from, String to) {
+
+        if ((!checkCorrectInput(from)) || (!checkCorrectInput(to))) {
+            System.out.println("Incorrect format! Try again.");
+            return false;
+        }
+        if (!checkIfLess(from, to)) {
+            System.out.println("From must be less than to!");
+            return false;
         }
 
-        File file = new File("output/result6.xml");
-        transformer.transform(new DOMSource(document), new StreamResult(file));
+        return true;
     }
 
-    private Node makeCompanyNode(Company company, Document document) {
+    private boolean checkCorrectInput(String str) {
 
-        Element node = document.createElement(company.getName());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
-        node.appendChild(makeFieldNode(document, "name", company.getName()));
-        node.appendChild(makeFieldNode(document, "short name", company.getShortName()));
-        node.appendChild(makeFieldNode(document, "date update", company.getDateUpdate()));
-        node.appendChild(makeFieldNode(document, "address", company.getAddress()));
-        node.appendChild(makeFieldNode(document, "date foundation", company.getDateFoundation()));
-        node.appendChild(makeFieldNode(document, "count of employees",
-                Integer.toString(company.getCountEmployees())));
-        node.appendChild(makeFieldNode(document, "auditor", company.getAuditor()));
-        node.appendChild(makeFieldNode(document, "phone", company.getPhone()));
-        node.appendChild(makeFieldNode(document, "email", company.getEmail()));
-        node.appendChild(makeFieldNode(document, "branch", company.getBranch()));
-        node.appendChild(makeFieldNode(document, "activity", company.getActivity()));
-        node.appendChild(makeFieldNode(document, "link", company.getLink()));
+        try {
 
-        return node;
+            return sdf.format(sdf.parse(str)).equals(str);
+
+        } catch (ParseException e) {
+
+            return false;
+        }
 
     }
 
-    private Node makeFieldNode(Document document, String name, String value) {
+    private boolean checkIfLess(String x, String y) {
 
-        Element title = document.createElement(name);
-        Element field = document.createElement(value);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
-        title.appendChild(field);
+        try {
+            Date dateFrom = sdf.parse(x);
+            Date dateTo = sdf.parse(y);
 
-        return title;
+            return (dateFrom.before(dateTo) || dateFrom.equals(dateTo));
+
+        } catch (ParseException e) {
+
+            return false;
+        }
+    }
+
+    private boolean checkNumbers(int from, int to) {
+
+        return (from < to || from == to);
+    }
+
+    private void writeReport() throws IOException {
+
+        StringBuilder sb = new StringBuilder();
+        String size = Integer.toString(resultOfSearching.size());
+
+        try (FileWriter writer = new FileWriter("output/report6.txt", true)) {
+
+            writer
+                    .write("Time:\n\r" + LocalDateTime.now()
+                            .format(DateTimeFormatter.ofLocalizedDateTime(SHORT, SHORT)));
+
+            if (requests.size() == 1) {
+                sb
+                        .append("\n\rRequest:\n\r").append(requests.get(0))
+                        .append("\n\rNumber of found companies:\r")
+                        .append(size).append("\n\r");
+
+                writer.write(sb.toString());
+
+            } else {
+                sb
+                        .append("\n\rRequest:\n\rFrom: ").append(requests.get(0))
+                        .append("\rTo: ").append(requests.get(1))
+                        .append("\n\rNumber of found companies:\r")
+                        .append(size).append("\n\r");
+
+                writer.write(sb.toString());
+            }
+
+            resultOfSearching.clear();
+            requests.clear();
+        }
     }
 }

@@ -18,11 +18,7 @@ public class Task6 {
         }catch (FileNotFoundException e) {
             System.out.println("File doesn't exist!");
         }catch (IOException e) {
-            System.out.println("Input/Output error!");
-        }catch (ParserConfigurationException e) {
-            System.out.println("Xml parser's error!");
-        }catch (TransformerException e) {
-            System.out.println("Xml transformer's error!");
+            System.out.println("Input error!");
         }
     }
 }

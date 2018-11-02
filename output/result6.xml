@@ -1,2 +1,53 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Companies/>
+<Companies>
+
+<Company>
+	<name> ОАО "Городейский сахарный комбинат" </name>
+	<shortName> Сахарный комбинат </shortName>
+	<dateUpdate> 12.11.2009 </dateUpdate>
+	<address> Минск, Партизанский пр. 134 </address>
+	<countEmployees> 25000 </countEmployees>
+	<dateFoundation> 09.05.2000 </dateFoundation>
+	<auditor> Ковалевский </auditor>
+	<phone> 447887589 </phone>
+	<email> sugar@mail.ru </email>
+	<branch> пищевая </branch>
+	<activity> производство пищевых продуктов </activity>
+	<link> http://www.gsr.by </link>
+</Company>
+
+
+<Company>
+	<name> 
+СОАО "Коммунарка" </name>
+	<shortName>  </shortName>
+	<dateUpdate> 25.12.2007 </dateUpdate>
+	<address> Артема 24 </address>
+	<countEmployees> 5000 </countEmployees>
+	<dateFoundation> 22.03.1997 </dateFoundation>
+	<auditor> Петров </auditor>
+	<phone> +375296664576 </phone>
+	<email> communarka@gmail.com </email>
+	<branch> Пищевая </branch>
+	<activity> производство кондитерских изделий </activity>
+	<link> http://www.kommunarka.by/ </link>
+</Company>
+
+
+<Company>
+	<name> ОАО "Красный пищевик" </name>
+	<shortName> Красный пищевик </shortName>
+	<dateUpdate> 01.01.2005 </dateUpdate>
+	<address> Убаревича 68 </address>
+	<countEmployees> 15000 </countEmployees>
+	<dateFoundation> 05.10.1998 </dateFoundation>
+	<auditor> Котиков </auditor>
+	<phone> 449078956 </phone>
+	<email> krasnyPisvhevik@mail.ru </email>
+	<branch> пищевая </branch>
+	<activity> производство кондитерских изделий </activity>
+	<link> http://www.zefir.by/ </link>
+</Company>
+
+
+</Companies>
+

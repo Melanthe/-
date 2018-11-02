@@ -1,26 +1,76 @@
 Time:
-28.10.2018, 17:39
-Request:
-БелКофе
-Number of found companies:
-1
-
-Request:
-Пищевая
-Number of found companies:
-3
-
-Time:
-28.10.2018, 17:39
-Request:
-hello!
-Number of found companies:
-0
-
-Time:
-29.10.2018, 21:55
-Request:
-DOMException
-Number of found companies:
-0
-
+30.10.2018, 23:36
+Request:
+БелКофе
+Number of found companies:1
+Time:
+30.10.2018, 23:36
+Request:
+hello
+Number of found companies:0
+Time:
+30.10.2018, 23:36
+Request:
+ПиЩевая
+Number of found companies:3
+Time:
+30.10.2018, 23:40
+Request:
+From: 08.05.2000To: 10.05.2000
+Number of found companies:1
+Time:
+30.10.2018, 23:40
+Request:
+From: 10.10.1996To: 12.10.2017
+Number of found companies:4
+Time:
+31.10.2018, 0:04
+Request:
+From: 32.10.2000To: 12.12.2010
+Number of found companies:0
+Time:
+31.10.2018, 0:11
+Request:
+From: 32.12.2000To: 12.23.3444
+Number of found companies:0
+Time:
+31.10.2018, 0:11
+Request:
+Коммунарка
+Number of found companies:0
+Time:
+02.11.2018, 12:40
+Request:
+БелКофе
+Number of found companies:1
+Time:
+02.11.2018, 12:44
+Request:
+БелКофе
+Number of found companies:1
+Time:
+02.11.2018, 12:46
+Request:
+БелКофе
+Number of found companies:1
+Time:
+02.11.2018, 13:28
+Request:
+Пищевая
+Number of found companies:3
+Time:
+02.11.2018, 13:29
+Request:
+Пищевая
+Number of found companies:3
+Time:
+02.11.2018, 13:31
+Request:
+Пишевая
+Number of found companies:0
+Time:
+02.11.2018, 13:31
+Request:
+Пищевая
+Number of found companies:3
+

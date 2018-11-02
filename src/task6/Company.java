@@ -1,16 +1,13 @@
 package task6;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Company {
 
     private String name;
     private String shortTitle;
-    private int[] dateUpdate;
+    private String dateUpdate;
     private String address;
-    private int[] dateFoundation;
     private int countEmployees;
+    private String dateFoundation;
     private String auditor;
     private String phone;
     private String email;
@@ -18,11 +15,7 @@ public class Company {
     private String activity;
     private String link;
 
-    public Company() {
-
-        dateUpdate = new int[3];
-        dateFoundation = new int[3];
-    }
+    public Company() {}
 
     public Company(String name, String shortTitle, String dateUpdate, String address,
                    String dateFoundation, int countEmployees, String auditor, String phone,
@@ -30,9 +23,9 @@ public class Company {
 
         this.name = name;
         this.shortTitle = shortTitle;
-        this.dateUpdate = formatDate(dateUpdate);
+        this.dateUpdate = dateUpdate;
         this.address = address;
-        this.dateFoundation = formatDate(dateFoundation);
+        this.dateFoundation = dateFoundation;
         this.countEmployees = countEmployees;
         this.auditor = auditor;
         this.phone = phone;
@@ -42,33 +35,12 @@ public class Company {
         this.link = link;
     }
 
-    private int[] formatDate(String date) {
-
-        try (Scanner sc = new Scanner(date).useDelimiter("\\.")) {
-
-            int[] res = new int[3];
-
-            for (int i = 0; i < 3; ++i) {
-
-                try {
-
-                    res[i] = sc.nextInt();
-
-                } catch (InputMismatchException e) {
-                }
-            }
-
-            return res;
-        }
-    }
-
     public String getShortName() {
-
         return shortTitle;
     }
 
     public String getDateFoundation() {
-        return dateToString(dateFoundation);
+        return dateFoundation;
     }
 
     public int getCountEmployees() {
@@ -88,7 +60,7 @@ public class Company {
     }
 
     public String getDateUpdate() {
-        return dateToString(dateUpdate);
+        return dateUpdate;
     }
 
     public String getAddress() {
@@ -136,13 +108,5 @@ public class Company {
         }
 
         return result;
-    }
-
-    private String dateToString(int[] date) {
-
-        StringBuilder res = new StringBuilder(date[0]);
-        res.append(".").append(date[1]).append(".").append(date[2]);
-
-        return res.toString();
     }
 }
