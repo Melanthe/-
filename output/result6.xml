@@ -34,6 +34,22 @@
 
 
 <Company>
+	<name> ОАО "Белкофе" </name>
+	<shortName> БелКофе </shortName>
+	<dateUpdate> 10.04.2003 </dateUpdate>
+	<address> Маяковского, 180 </address>
+	<countEmployees> 4000 </countEmployees>
+	<dateFoundation> 13.02.1999 </dateFoundation>
+	<auditor> Иванов </auditor>
+	<phone> 338659021 </phone>
+	<email> coffe@mail.ru </email>
+	<branch> услуг </branch>
+	<activity> осуществление общественного питания </activity>
+	<link> http://belcofe.by/ </link>
+</Company>
+
+
+<Company>
 	<name> ОАО "Красный пищевик" </name>
 	<shortName> Красный пищевик </shortName>
 	<dateUpdate> 01.01.2005 </dateUpdate>
