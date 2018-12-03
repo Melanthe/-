@@ -1,0 +1,24 @@
+03.12.2018, 20:36
+	  Request 1: success. Number of found companies: 1
+	  Request 2: success. Number of found companies: 1
+	  Request 3: success. Number of found companies: 2
+	  Request 4: success. Number of found companies: 1
+	
+03.12.2018, 20:37
+	  Request 1: success. Number of companies found: 1
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	
+03.12.2018, 20:38
+	  Request 1: defeat. Exceptions: java.lang.NoSuchMethodExceptiontask7.Company.get1address()
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	
+03.12.2018, 20:40
+	  Request 1: defeat. Exceptions: java.lang.NoSuchMethodException task7.Company.get1address()
+	  Request 2: defeat. Exceptions: common.MyException: Request's format error!
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	

@@ -48,7 +48,7 @@ public class Menu {
                 choice = Integer.parseInt(scanner.nextLine());
                 chooseFunction(choice);
 
-                writeToJason(resultOfSearching);
+                writeToJson(resultOfSearching);
                 writeToXml(resultOfSearching);
                 writeReport();
 
@@ -168,7 +168,7 @@ public class Menu {
         resultOfSearching = companies.findByEmployees(from, to);
     }
 
-    private void writeToJason(List<Company> list) throws FileNotFoundException {
+    private void writeToJson(List<Company> list) throws FileNotFoundException {
 
         try (PrintWriter pw = new PrintWriter("output/result6.json")) {
 

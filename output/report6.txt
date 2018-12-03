@@ -97,4 +97,9 @@ Time:
 Request:
 From: 04.03.1997To: 23.12.2009
 Number of found companies:4
+Time:
+20.11.2018, 18:43
+Request:
+Пищевая
+Number of found companies:3
 

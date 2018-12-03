@@ -3,7 +3,7 @@ package task7;
 public class Company {
 
     private String name;
-    private String shortTitle;
+    private String shortName;
     private String dateUpdate;
     private String address;
     private int countEmployees;
@@ -17,12 +17,12 @@ public class Company {
 
     public Company() {}
 
-    public Company(String name, String shortTitle, String dateUpdate, String address,
+    public Company(String name, String shortName, String dateUpdate, String address,
                    String dateFoundation, int countEmployees, String auditor, String phone,
                    String email, String branch, String activity, String link) {
 
         this.name = name;
-        this.shortTitle = shortTitle;
+        this.shortName = shortName;
         this.dateUpdate = dateUpdate;
         this.address = address;
         this.dateFoundation = dateFoundation;
@@ -36,7 +36,7 @@ public class Company {
     }
 
     public String getShortName() {
-        return shortTitle;
+        return shortName;
     }
 
     public String getDateFoundation() {

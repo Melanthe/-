@@ -1,0 +1,20 @@
+<Companies>
+
+<Company>
+	<name> ОАО "Красный пищевик" </name>
+	<shortName> Красный пищевик </shortName>
+	<dateUpdate> 01.01.2005 </dateUpdate>
+	<address> Убаревича 68 </address>
+	<countEmployees> 15000 </countEmployees>
+	<dateFoundation> 05.10.1998 </dateFoundation>
+	<auditor> Котиков </auditor>
+	<phone> 449078956 </phone>
+	<email> krasnyPisvhevik@mail.ru </email>
+	<branch> пищевая </branch>
+	<activity> производство кондитерских изделий </activity>
+	<link> http://www.zefir.by/ </link>
+</Company>
+
+
+</Companies>
+
