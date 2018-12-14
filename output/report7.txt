@@ -22,3 +22,32 @@
 	  Request 3: success. Number of companies found: 2
 	  Request 4: success. Number of companies found: 1
 	
+08.12.2018, 13:57
+	  Request 1: success. Number of companies found: 1
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	
+08.12.2018, 13:58
+	  Request 1: success. Number of companies found: 1
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	
+08.12.2018, 13:59
+	  Request 1: defeat. Exceptions: common.MyException: Incorrect number of employees
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	
+08.12.2018, 13:59
+	  Request 1: defeat. Exceptions: common.MyException: Incorrect number of employees
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	
+08.12.2018, 14:01
+	  Request 1: defeat. Exceptions: common.MyException: Incorrect number of employees
+	  Request 2: success. Number of companies found: 1
+	  Request 3: success. Number of companies found: 2
+	  Request 4: success. Number of companies found: 1
+	

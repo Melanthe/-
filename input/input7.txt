@@ -1,4 +1,4 @@
-SELECT name,phone,address,countEmployees FROM dataBase WHERE countEmployees BETWEEN 1000 and 4000
+SELECT name,phone,address,countEmployees FROM dataBase WHERE countEmployees BETWEEN 10000 and 4000
 Select auditor,countEmployees,shortName from dataBase wHere shortName='БелКофе'
 Select branch,activity from dataBase WHERE activity='производство кондитерских изделий'
 Select * from dataBase wHere shortName='Красный пищевик'
