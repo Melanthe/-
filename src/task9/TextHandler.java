@@ -34,9 +34,9 @@ public class TextHandler {
 
     public void makeResult() throws FileNotFoundException {
 
-        removeBrackets();
+        //removeBrackets();
         //removeDigits();
-        //removeZero();
+        removeZero();
 
         PrintWriter pw = new PrintWriter("output/output9.txt");
         try(pw) {
@@ -68,11 +68,12 @@ public class TextHandler {
 
     private void removeZero() {
 
-        String string = "(0+)([1-9]+)";
+        String string = "(?<![0-9])0+([1-9]+)";
 
         Pattern pattern = Pattern.compile(string);
         Matcher matcher = pattern.matcher(workText);
 
-        workText = matcher.replaceAll("$2");
+        workText = matcher.replaceAll("$1");
+        workText = workText.replaceAll("(?<![0-9])0+(0{1})", "$1");
     }
 }
